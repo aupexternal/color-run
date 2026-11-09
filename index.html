@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="COLOR RUN: Run for fun, get covered in color, and celebrate every step.">
+  <title>COLOR RUN | Run. Splash. Celebrate.</title>
+  <style>
+    :root {
+      --ink: #17152d;
+      --paper: #fffdf8;
+      --pink: #ff4f91;
+      --orange: #ff9d35;
+      --yellow: #ffdc55;
+      --blue: #4b8cff;
+      --green: #4bc99a;
+      --purple: #8864e8;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink); background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 0; gap: 20px;
+    }
+    .brand { font-size: 1.15rem; font-weight: 950; letter-spacing: -.06em; }
+    .brand span { color: var(--pink); }
+    .nav-links { display: flex; align-items: center; gap: 26px; font-size: .9rem; font-weight: 700; }
+    .nav-links a:hover { color: var(--pink); }
+    .button {
+      display: inline-flex; justify-content: center; align-items: center;
+      padding: 14px 22px; border-radius: 999px; background: var(--ink);
+      color: white; font-weight: 800; border: 0; cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .button:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #17152d22; }
+    .button-light { background: white; color: var(--ink); }
+    .hero {
+      position: relative; overflow: hidden; border-radius: 34px;
+      min-height: 590px; display: grid; align-items: center;
+      background: linear-gradient(125deg, #ffdc55 0%, #ff9d35 38%, #ff4f91 72%, #8864e8 100%);
+      padding: clamp(32px, 7vw, 86px); isolation: isolate;
+    }
+    .hero::before, .hero::after {
+      content: ""; position: absolute; z-index: -1; border-radius: 50%;
+      filter: blur(1px); opacity: .8;
+    }
+    .hero::before { width: 390px; height: 390px; right: -75px; top: -105px; background: #4b8cff; }
+    .hero::after { width: 280px; height: 280px; right: 18%; bottom: -180px; background: #4bc99a; }
+    .hero-copy { max-width: 650px; }
+    .eyebrow {
+      display: inline-block; background: #ffffffd9; border-radius: 99px;
+      padding: 8px 13px; font-size: .75rem; font-weight: 900; letter-spacing: .12em;
+    }
+    h1 { font-size: clamp(4rem, 10vw, 8.5rem); line-height: .83; letter-spacing: -.09em; margin: 25px 0; }
+    h1 span { color: white; text-shadow: 0 5px 0 #17152d14; }
+    .hero p { max-width: 480px; font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.6; font-weight: 600; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .paint-splash {
+      position: absolute; right: 7%; bottom: 13%; width: 210px; height: 210px;
+      border-radius: 46% 54% 62% 38% / 44% 40% 60% 56%;
+      background: var(--green); transform: rotate(-18deg);
+      box-shadow: 30px -20px 0 -8px var(--yellow), -25px 28px 0 -10px var(--blue), 18px 38px 0 -15px var(--purple);
+      opacity: .95; z-index: -1;
+    }
+    .section { padding: 88px 0; }
+    .section-heading { max-width: 650px; margin-bottom: 34px; }
+    .kicker { color: #8b56d9; font-size: .75rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+    h2 { font-size: clamp(2.3rem, 5vw, 4rem); letter-spacing: -.065em; line-height: .98; margin: 12px 0; }
+    .section-heading p { color: #656276; line-height: 1.7; }
+    .details-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .detail-card { padding: 26px; border-radius: 24px; background: white; border: 1px solid #eeeaf3; }
+    .detail-card .icon { font-size: 2rem; }
+    .detail-card h3 { margin: 15px 0 7px; font-size: 1.1rem; }
+    .detail-card p { color: #6e6a7c; margin: 0; line-height: 1.6; font-size: .95rem; }
+    .how { background: #f4f1ff; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .step { background: white; border-radius: 24px; padding: 26px; }
+    .step-number { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; color: white; font-weight: 900; background: var(--pink); }
+    .step:nth-child(2) .step-number { background: var(--blue); }
+    .step:nth-child(3) .step-number { background: var(--green); color: var(--ink); }
+    .step p { color: #6e6a7c; line-height: 1.6; }
+    
+    .event-info-panel {
+      background: white; border: 1px solid #eeeaf3; border-radius: 28px;
+      padding: 36px; box-shadow: 0 16px 50px #17152d0b; margin-bottom: 50px;
+    }
+    .event-info-panel h3 { margin-top: 0; font-size: 1.75rem; letter-spacing: -.03em; }
+    .event-info-panel p { color: #6e6a7c; line-height: 1.65; }
+
+    .category-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 30px; }
+    .category-card {
+      background: white; border-radius: 28px; border: 1px solid #eeeaf3;
+      padding: 30px; display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 10px 30px #17152d06; transition: transform .2s, box-shadow .2s;
+    }
+    .category-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px #17152d0d; }
+    .category-badge {
+      display: inline-block; padding: 6px 14px; border-radius: 99px;
+      font-weight: 900; font-size: .85rem; width: fit-content; margin-bottom: 12px;
+    }
+    .badge-3k { background: #ffe6f0; color: var(--pink); }
+    .badge-5k { background: #eaf2ff; color: var(--blue); }
+    .badge-10k { background: #e8f9f2; color: #1f9468; }
+    
+    .category-card h3 { font-size: 2rem; margin: 0 0 10px; letter-spacing: -.04em; }
+    .pricing-box {
+      margin: 18px 0; padding: 16px; background: #faf9fd; border-radius: 16px;
+      display: grid; gap: 8px;
+    }
+    .price-row { display: flex; justify-content: space-between; align-items: center; font-size: .95rem; }
+    .price-row.early { color: var(--purple); font-weight: 800; }
+    .price-row.regular { color: #6e6a7c; font-weight: 600; }
+    .inclusions-list { margin: 15px 0 25px; padding-left: 20px; color: #5a5669; font-size: .9rem; line-height: 1.7; }
+    
+    .footer { padding: 30px 0; border-top: 1px solid #eeeaf3; color: #777386; font-size: .85rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    @media (max-width: 760px) {
+      .nav-links a:not(.button) { display: none; }
+      .hero { min-height: 620px; }
+      .paint-splash { width: 130px; height: 130px; right: 12%; bottom: 8%; opacity: .65; }
+      .details-grid, .steps, .category-cards { grid-template-columns: 1fr; }
+      .section { padding: 65px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="container nav">
+    <a class="brand" href="index.html">COLOR<span>RUN</span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#about">About</a><a href="#experience">The experience</a><a class="button" href="register.html">Register now</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container hero">
+      <div class="hero-copy">
+        <span class="eyebrow">A DAY OF COLOR, ENERGY & GOOD VIBES</span>
+        <h1>RUN.<br><span>SPLASH.</span><br>REPEAT.</h1>
+        <p>Leave the ordinary behind. Move, laugh, and celebrate with every colorful step at COLOR RUN!</p>
+        <div class="hero-actions">
+          <a class="button" href="#categories">VIEW CATEGORIES <span aria-hidden="true">&nbsp;↗</span></a>
+          <a class="button button-light" href="#about">Discover the event</a>
+        </div>
+      </div>
+      <div class="paint-splash" aria-hidden="true"></div>
+    </section>
+
+    <section class="container section" id="about">
+      <div class="section-heading">
+        <span class="kicker">Save the date</span>
+        <h2>More than a run.<br>A colorful memory.</h2>
+        <p>COLOR RUN brings people together for a lively event where everyone can take part at their own pace. Come with friends, family, classmates, or your whole team.</p>
+      </div>
+      <div class="details-grid">
+        <article class="detail-card"><div class="icon">📅</div><h3>Event date</h3><p>To be announced<br><strong>Add your event date here</strong></p></article>
+        <article class="detail-card"><div class="icon">📍</div><h3>Event venue</h3><p>To be announced<br><strong>Add your venue here</strong></p></article>
+        <article class="detail-card"><div class="icon">🏃</div><h3>Who can join?</h3><p>Friends, families, students, and anyone ready to have a colorful day.</p></article>
+      </div>
+    </section>
+
+    <section class="how section" id="experience">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">The experience</span>
+          <h2>Your day. Your pace.<br>All the color.</h2>
+          <p>Get ready for an event full of movement, smiles, and unforgettable moments.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><div class="step-number">01</div><h3>Sign up</h3><p>Choose your distance category and complete your race entry.</p></article>
+          <article class="step"><div class="step-number">02</div><h3>Show up</h3><p>Wear comfortable clothes, bring your energy, and meet the crowd.</p></article>
+          <article class="step"><div class="step-number">03</div><h3>Celebrate</h3><p>Enjoy the run, celebrate with friends, and make colorful memories.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section" id="details">
+      <div class="event-info-panel">
+        <span class="kicker">Official details</span>
+        <h3>COLOR RUN: THE ULTIMATE FESTIVAL</h3>
+        <p>Experience the brightest 5-kilometer un-timed fun run in the world! Color runners are doused from head to toe in different colored powder at each kilometer. The fun continues at the finish line with a gigantic Color Festival featuring music, dancing, and massive color throws.</p>
+      </div>
+
+      <div class="section-heading" id="categories">
+        <span class="kicker">Race options</span>
+        <h2>Choose your distance</h2>
+        <p>Select the category that suits your pace. Every registration includes a complete color run kit.</p>
+      </div>
+
+      <div class="category-cards">
+        <article class="category-card">
+          <div>
+            <span class="category-badge badge-3k">FUN RUN</span>
+            <h3>3KM Run</h3>
+            <p style="color:#6e6a7c; font-size:.95rem;">Perfect for beginners, families, and casual strollers looking for pure fun.</p>
+            <div class="pricing-box">
+              <div class="price-row early"><span>Early Bird:</span> <span>$25</span></div>
+              <div class="price-row regular"><span>Regular:</span> <span>$35</span></div>
+            </div>
+            <strong style="font-size:.85rem; letter-spacing:.05em; text-transform:uppercase; color:#8b56d9;">Inclusions:</strong>
+            <ul class="inclusions-list">
+              <li>Official Event T-Shirt</li>
+              <li>Color Packet (1x)</li>
+              <li>Race Bib</li>
+              <li>Finisher Medal</li>
+            </ul>
+          </div>
+          <a class="button" href="register.html?category=3KM">Register for 3KM ↗</a>
+        </article>
+
+        <article class="category-card">
+          <div>
+            <span class="category-badge badge-5k">MOST POPULAR</span>
+            <h3>5KM Run</h3>
+            <p style="color:#6e6a7c; font-size:.95rem;">The classic Color Run experience with all color stations along the route.</p>
+            <div class="pricing-box">
+              <div class="price-row early"><span>Early Bird:</span> <span>$35</span></div>
+              <div class="price-row regular"><span>Regular:</span> <span>$45</span></div>
+            </div>
+            <strong style="font-size:.85rem; letter-spacing:.05em; text-transform:uppercase; color:#8b56d9;">Inclusions:</strong>
+            <ul class="inclusions-list">
+              <li>Official Event T-Shirt</li>
+              <li>Color Packets (2x)</li>
+              <li>Race Bib</li>
+              <li>Sunglasses</li>
+              <li>Finisher Medal</li>
+            </ul>
+          </div>
+          <a class="button" href="register.html?category=5KM">Register for 5KM ↗</a>
+        </article>
+
+        <article class="category-card">
+          <div>
+            <span class="category-badge badge-10k">CHALLENGE</span>
+            <h3>10KM Run</h3>
+            <p style="color:#6e6a7c; font-size:.95rem;">Double the distance and double the color for seasoned runners.</p>
+            <div class="pricing-box">
+              <div class="price-row early"><span>Early Bird:</span> <span>$45</span></div>
+              <div class="price-row regular"><span>Regular:</span> <span>$55</span></div>
+            </div>
+            <strong style="font-size:.85rem; letter-spacing:.05em; text-transform:uppercase; color:#8b56d9;">Inclusions:</strong>
+            <ul class="inclusions-list">
+              <li>Official Event T-Shirt</li>
+              <li>Color Packets (3x)</li>
+              <li>Race Bib & Timing Chip</li>
+              <li>Sunglasses & Headband</li>
+              <li>Premium Finisher Medal</li>
+            </ul>
+          </div>
+          <a class="button" href="register.html?category=10KM">Register for 10KM ↗</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span><strong>COLOR RUN</strong> · Run. Splash. Celebrate.</span>
+      <span>© <span id="year"></span> COLOR RUN. All rights reserved.</span>
+    </div>
+  </footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
