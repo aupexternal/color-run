@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COLOR RUN | Event Registration & Payment</title>
+  <style>
+    :root {
+      --ink: #17152d;
+      --paper: #fffdf8;
+      --pink: #ff4f91;
+      --purple: #8864e8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; color: var(--ink); background: var(--paper);
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+    .brand { font-size: 1.15rem; font-weight: 950; }
+    .brand span { color: var(--pink); }
+    .section { padding: 40px 0 88px; }
+    .register-wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; }
+    .register-panel { background: white; border: 1px solid #eeeaf3; padding: 36px; border-radius: 28px; box-shadow: 0 16px 50px #17152d0b; }
+    form { display: grid; gap: 16px; }
+    label { font-size: .85rem; font-weight: 800; display: grid; gap: 7px; }
+    input, select { width: 100%; padding: 14px 15px; border: 1px solid #dedbe7; border-radius: 12px; font: inherit; }
+    .button { display: inline-flex; justify-content: center; align-items: center; padding: 14px 22px; border-radius: 999px; background: var(--ink); color: white; font-weight: 800; border: 0; cursor: pointer; }
+    .step-panel { display: none; }
+    .step-panel.active { display: block !important; }
+    .payment-box { background: #faf9fd; border-radius: 16px; padding: 20px; border: 1px solid #eeeaf3; margin-bottom: 20px; }
+    #status-message { display: none; padding: 16px; border-radius: 12px; font-weight: 700; background: #e9fff5; color: #146a4c; margin-top: 15px; }
+    @media (max-width: 760px) {
+      .register-wrap { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="container nav">
+    <a class="brand" href="index.html">COLOR<span>RUN</span></a>
+  </header>
+
+  <main class="container section">
+    <div class="register-wrap">
+      <div>
+        <span style="color:#8b56d9; font-weight:900; font-size:.75rem; letter-spacing:.16em; text-transform:uppercase;">Registration Flow</span>
+        <h1 style="font-size: 2.8rem; letter-spacing: -.05em; margin: 10px 0;">Complete Your Entry</h1>
+        <p style="color: #656276; line-height: 1.6;">Fill out your runner details, proceed to GCash payment, and upload your transaction receipt for verification.</p>
+      </div>
+
+      <div class="register-panel">
+        <!-- STEP 1: Participant Info -->
+        <div id="step-1" class="step-panel active">
+          <h3 style="margin-top:0;">1. Participant Details</h3>
+          <form id="info-form" onsubmit="return false;">
+            <label>Full name<input id="form-name" type="text" placeholder="Your full name" required></label>
+            <label>Email address<input id="form-email" type="email" placeholder="you@example.com" required></label>
+            <label>Contact number<input id="form-phone" type="tel" placeholder="09XXXXXXXXX" required></label>
+            <label>Race category
+              <select id="category-select" required>
+                <option value="">Select distance category</option>
+                <option value="3KM">3KM Run (Early: $25 / Regular: $35)</option>
+                <option value="5KM">5KM Run (Early: $35 / Regular: $45)</option>
+                <option value="10KM">10KM Run (Early: $45 / Regular: $55)</option>
+              </select>
+            </label>
+            <button class="button" type="button" id="proceed-btn">PROCEED TO PAYMENT ↗</button>
+          </form>
+        </div>
+
+        <!-- STEP 2: GCash Payment & Receipt Upload -->
+        <div id="step-2" class="step-panel">
+          <h3 style="margin-top:0;">2. GCash Payment & Receipt</h3>
+          <div class="payment-box">
+            <strong>Send Payment via GCash</strong>
+            <div>Account Name: <strong>COLOR RUN PH</strong></div>
+            <div>Account Number: <strong>0917-123-4567</strong></div>
+          </div>
+          
+          <form id="payment-form">
+            <label>Upload GCash Receipt Image
+              <input type="file" id="receipt-file" accept="image/*" required>
+            </label>
+            <button class="button" type="submit" id="submit-btn">SUBMIT RECEIPT FOR VERIFICATION ↗</button>
+          </form>
+          <div id="status-message"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
