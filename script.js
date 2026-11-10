@@ -32,10 +32,10 @@ function handleStep1Proceed() {
   const phone = document.getElementById('form-phone').value.trim();
   const category = document.getElementById('category-select').value;
 
- if (!name || !email || !phone || !category) {
-  alert("Please fill in all participant details before proceeding.");
-  return;
-}
+  if (!name || !email || !phone || !category) {
+    alert("Please fill in all participant details before proceeding.");
+    return;
+  }
 
   registrationData = { name, email, phone, category };
 
@@ -81,69 +81,4 @@ function handlePaymentSubmit(e) {
     });
   };
   reader.readAsDataURL(file);
-}
-```[cite: 1, 2, 3]
-
----
-
-### 2. Google Apps Script Backend (`Code.gs`)
-
-Open your connected Google Sheet, go to **Extensions > Apps Script**, paste the code below into `Code.gs`, and click **Deploy > New deployment** (select type **Web app**, set execute as **Me**, and who has access to **Anyone**).
-
-```javascript
-function doPost(e) {
-  try {
-    var data = JSON.parse(e.postData.contents);
-    
-    // 1. Get active spreadsheet and sheet
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    
-    // If the sheet is empty, add header row automatically
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(["Timestamp", "Full Name", "Email", "Phone", "Category", "Receipt Link", "Status"]);
-    }
-    
-    var fileUrl = "No Receipt Uploaded";
-    
-    // 2. Handle Base64 file upload to Google Drive
-    if (data.fileData) {
-      // Optional: Specify a folder ID where receipts should be saved. 
-      // If left blank, it saves in your Google Drive root folder.
-      var folderId = ""; 
-      var folder = folderId ? DriveApp.getFolderById(folderId) : DriveApp.getRootFolder();
-      
-      var base64Content = data.fileData.split(',')[1];
-      var blob = Utilities.newBlob(
-        Utilities.base64Decode(base64Content), 
-        data.mimeType, 
-        data.fileName
-      );
-      
-      var file = folder.createFile(blob);
-      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-      fileUrl = file.getUrl();
-    }
-    
-    // 3. Append registration row to Google Sheet
-    sheet.appendRow([
-      new Date(),
-      data.name,
-      data.email,
-      data.phone,
-      data.category,
-      fileUrl,
-      "Pending Verification"
-    ]);
-    
-    return ContentService.createTextOutput(JSON.stringify({"status": "success"}))
-      .setMimeType(ContentService.MimeType.JSON);
-      
-  } catch (error) {
-    return ContentService.createTextOutput(JSON.stringify({"status": "error", "message": error.toString()}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-function doGet(e) {
-  return ContentService.createTextOutput("Color Run Web App is active and running!");
 }
