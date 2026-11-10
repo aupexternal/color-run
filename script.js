@@ -32,10 +32,10 @@ function handleStep1Proceed() {
   const phone = document.getElementById('form-phone').value.trim();
   const category = document.getElementById('category-select').value;
 
-  if (!name || !email || !phone || !category) {
-    alert("Please fill in all participant details before proceeding.");
-    return;
-  }
+ if (!name || !email || !phone || !category) {
+  alert("Please fill in all participant details before proceeding.");
+  return;
+}
 
   registrationData = { name, email, phone, category };
 
