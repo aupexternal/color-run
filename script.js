@@ -1,6 +1,6 @@
 // COLOR RUN - Google Apps Script Integration & Form Handler
 
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwf_lMukai8J6wDoRvjJIqZQYB2EnkLY-IrGs8Z-cztYAUBFdcSciF6RMfTqaiqSWpI/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxgXtN_E61tmHmnSx6znpwL6eknWomByuTfZcduRCMUx-U_qMiZ2pQSEVQQNllaZ7XT/exec';
 let registrationData = {};
 
 // Auto-select category from URL query parameter if passed from homepage
